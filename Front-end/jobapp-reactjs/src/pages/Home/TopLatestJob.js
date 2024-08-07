@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 
 import { Pagination, Autoplay } from 'swiper/modules';
+import { fetchAllJob } from '../../configs/APIs';
 
 const TopLatestJob = () => {
   const [jobs, setJobs] = useState([]);
@@ -20,7 +21,7 @@ const TopLatestJob = () => {
       try {
         
       } catch (error) {
-       
+      
       }
     }
 

@@ -7,11 +7,14 @@ import './index.css';
 import Header from "./component/Header";
 import Footer from "./component/Footer";
 import Login from './pages/User/Login';
+import Home from "./pages/Home/Home";
+
 import Register from './pages/User/Register/Register';
 import RegisterApplicant from "./pages/User/Register/RegisterApplicant";
 import RegisterEmployer from "./pages/User/Register/RegisterEmployer";
 import PostRecruitment from './pages/User/Company/PostRecruitment';
 import JobDetail from './pages/Home/JobDetail';
+
 
 const noHeaderFooterRoutes = ['/login'];
 
@@ -29,7 +32,8 @@ function AppLayout() {
           <Route path="/register-applicant/:userId" element={<RegisterApplicant />} />
           <Route path="/register-employer/:userId" element={<RegisterEmployer />} />
           <Route path="/job-detail/:jobId" element={<JobDetail />} />
-          <Route path='/post-recruitment' element={<PostRecruitment />} />
+          <Route path='/post-recruitment' element={<PostRecruitment />} />          
+          <Route path="/" element={<Home />} />
           
           <Route path="*" element={() => <div>404 Not Found</div>} />
         </Routes>

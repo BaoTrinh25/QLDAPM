@@ -21,7 +21,7 @@ const TopPopular = () => {
       try {
         
       } catch (error) {
-        
+       
       }
     }
 

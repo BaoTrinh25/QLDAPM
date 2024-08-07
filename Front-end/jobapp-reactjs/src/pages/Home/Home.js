@@ -16,8 +16,7 @@ const Home = () => {
 
   const loadTypes = async () => {
     try {
-      let res = await APIs.get(endpoints['employmenttypes']);
-      setEmploymentTypes(res.data);
+    
     } catch (ex) {
       console.error(ex);
     }
