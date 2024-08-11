@@ -8,6 +8,8 @@ import Header from "./component/Header";
 import Footer from "./component/Footer";
 import Login from './pages/User/Login';
 import Home from "./pages/Home/Home";
+import AllJobLatest from './pages/Home/AllJobLatest';
+import AllJobPopular from './pages/Home/AllJobPopular';
 
 import Register from './pages/User/Register/Register';
 import RegisterApplicant from "./pages/User/Register/RegisterApplicant";
@@ -34,6 +36,8 @@ function AppLayout() {
           <Route path="/job-detail/:jobId" element={<JobDetail />} />
           <Route path='/post-recruitment' element={<PostRecruitment />} />          
           <Route path="/" element={<Home />} />
+          <Route path="/jobs" element={<AllJobLatest />} />
+          <Route path="/jobs-popular" element={<AllJobPopular />} />
           
           <Route path="*" element={() => <div>404 Not Found</div>} />
         </Routes>
