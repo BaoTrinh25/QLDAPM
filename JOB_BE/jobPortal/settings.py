@@ -44,6 +44,19 @@ INSTALLED_APPS = [
     # Phần dùng cho Debug toolbar
     'debug_toolbar',
     # Phần CKEditor
+    'ckeditor',
+    'ckeditor_uploader',
+    # API
+    'rest_framework',
+    # Phần Swagger
+    'drf_yasg',
+    # Phần OAuth2
+    'oauth2_provider',
+    # Phần filter
+    'django_filters',
+    'corsheaders',
+    # 'django_redis'
+    'rest_framework_simplejwt',
 
 ]
 

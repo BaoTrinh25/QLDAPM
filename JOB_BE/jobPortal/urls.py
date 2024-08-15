@@ -33,6 +33,21 @@ urlpatterns = [
     # Phần Debug Toolbar
     path('__debug__/', include(debug_toolbar.urls)),
     # Phần của CKEditor
+    re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
 
+    # path('o/token/', MyTokenView.as_view(), name='token'),
+
+    # Phần tích hợp Swagger
+    re_path(r'^swagger(?P<format>\.json|\.yaml)$',
+            schema_view.without_ui(cache_timeout=0),
+            name='schema-json'),
+    re_path(r'^swagger/$',
+            schema_view.with_ui('swagger', cache_timeout=0),
+            name='schema-swagger-ui'),
+    re_path(r'^redoc/$',
+            schema_view.with_ui('redoc', cache_timeout=0),
+            name='schema-redoc'),
+
+    path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 ]
 
