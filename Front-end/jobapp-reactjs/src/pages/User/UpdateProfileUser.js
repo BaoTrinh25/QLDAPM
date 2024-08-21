@@ -7,97 +7,97 @@ import { authApi, endpoints } from '../../configs/APIs';
 import { getToken } from '../../utils/storage';
 
 const UpdateProfileUser = () => {
-    // const user = useContext(MyUserContext);
-    // const navigate = useNavigate();
-    // const dispatch = useContext(MyDispatchContext);
+    const user = useContext(MyUserContext);
+    const navigate = useNavigate();
+    const dispatch = useContext(MyDispatchContext);
 
-    // const [formData, setFormData] = useState({
-    //     first_name: user.first_name || '',
-    //     last_name: user.last_name || '',
-    //     username: user.username || '',
-    //     gender: user.gender || 0,
-    //     email: user.email || '',
-    //     mobile: user.mobile || '',
-    //     // password: user.password || ''
-    // });
+    const [formData, setFormData] = useState({
+        first_name: user.first_name || '',
+        last_name: user.last_name || '',
+        username: user.username || '',
+        gender: user.gender || 0,
+        email: user.email || '',
+        mobile: user.mobile || '',
+        // password: user.password || ''
+    });
 
-    // const [avatarImage, setAvatarImage] = useState(null);
-    // const editorRef = useRef(null);
+    const [avatarImage, setAvatarImage] = useState(null);
+    const editorRef = useRef(null);
 
-    // const handleChange = (e) => {
-    //     const { name, value } = e.target;
-    //     setFormData({
-    //         ...formData,
-    //         [name]: value,
-    //     });
-    // };
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
 
-    // const handleSave = async () => {
-    //     try {
-    //         let form = new FormData();
-    //         Object.keys(formData).forEach((key) => {
-    //             form.append(key, formData[key]);
-    //         });
+    const handleSave = async () => {
+        try {
+            let form = new FormData();
+            Object.keys(formData).forEach((key) => {
+                form.append(key, formData[key]);
+            });
 
-    //         if (avatarImage && editorRef.current) {
-    //             const canvas = editorRef.current.getImage();
-    //             canvas.toBlob((blob) => {
-    //                 form.append('avatar', blob);
-    //                 updateUser(form);
-    //             });
-    //         } else {
-    //             updateUser(form); // Gọi updateUser mà không gửi avatar
-    //         }
-    //     } catch (ex) {
-    //         console.error(ex);
-    //     }
-    // };
+            if (avatarImage && editorRef.current) {
+                const canvas = editorRef.current.getImage();
+                canvas.toBlob((blob) => {
+                    form.append('avatar', blob);
+                    updateUser(form);
+                });
+            } else {
+                updateUser(form); // Gọi updateUser mà không gửi avatar
+            }
+        } catch (ex) {
+            console.error(ex);
+        }
+    };
 
-    // const updateUser = async (form) => {
-    //     try {
-    //         const token = getToken();
-    //         console.log('Data sending to server:', form); // Log form data before sending
+    const updateUser = async (form) => {
+        try {
+            const token = getToken();
+            console.log('Data sending to server:', form); // Log form data before sending
 
-    //         const res = await authApi(token).patch(endpoints["patch_user"], 
-    //             form, 
-    //             {
-    //             headers: {
-    //                 'Content-Type': 'multipart/form-data'
-    //             }
-    //         });
+            const res = await authApi(token).patch(endpoints["patch_user"], 
+                form, 
+                {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
 
-    //         console.log('Response from server:', res.data); // Log response from server
+            console.log('Response from server:', res.data); // Log response from server
 
-    //         if (res.status === 200) {
-    //             alert('Cập nhật thông tin thành công!');
-    //             // // Cập nhật thông tin người dùng trong ngữ cảnh ứng dụng
-    //             // dispatch({
-    //             //     type: 'update_employer',
-    //             //     payload: res.data
-    //             // });
-    //             navigate('/');
-    //         } else {
-    //             console.error('Lỗi khi cập nhật thông tin');
-    //         }
-    //     } catch (ex) {
-    //         console.error(ex);
-    //     }
-    // };
+            if (res.status === 200) {
+                alert('Cập nhật thông tin thành công!');
+                // // Cập nhật thông tin người dùng trong ngữ cảnh ứng dụng
+                // dispatch({
+                //     type: 'update_employer',
+                //     payload: res.data
+                // });
+                navigate('/');
+            } else {
+                console.error('Lỗi khi cập nhật thông tin');
+            }
+        } catch (ex) {
+            console.error(ex);
+        }
+    };
 
-    // const handleAvatarChange = (e) => {
-    //     const file = e.target.files[0];
-    //     if (file) {
-    //         setAvatarImage(file);
-    //     }
-    // };
+    const handleAvatarChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setAvatarImage(file);
+        }
+    };
 
-    // const handleDeleteAvatar = () => {
-    //     setAvatarImage(null);
-    //     setFormData({
-    //         ...formData,
-    //         avatar: '',
-    //     });
-    // };
+    const handleDeleteAvatar = () => {
+        setAvatarImage(null);
+        setFormData({
+            ...formData,
+            avatar: '',
+        });
+    };
 
     return (
         <div className="flex flex-row items-start p-6 bg-gray-100 min-h-screen">

@@ -20,82 +20,82 @@ const JobDetail = () => {
     const navigate = useNavigate();
     const user = useContext(MyUserContext);
 
-    // useEffect(() => {
-    //     const getJobDetails = async () => {
-    //         try {
-    //             const response = await fetchJobDetail(jobId);
-    //             setJob(response.data);
+    useEffect(() => {
+        const getJobDetails = async () => {
+            try {
+                const response = await fetchJobDetail(jobId);
+                setJob(response.data);
 
-    //             // Kiểm tra trạng thái lưu bài viết
-    //             if (user) {
-    //                 const token = getToken();
-    //                 const likeResponse = await authApi(token).get(endpoints['check_liked'](jobId));
-    //                 setIsFavorite(likeResponse.data.liked);
-    //             }
-    //         } catch (error) {
-    //             console.error(error);
-    //         } finally {
-    //             setLoading(false);
-    //         }
-    //     };
+                // Kiểm tra trạng thái lưu bài viết
+                if (user) {
+                    const token = getToken();
+                    const likeResponse = await authApi(token).get(endpoints['check_liked'](jobId));
+                    setIsFavorite(likeResponse.data.liked);
+                }
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    //     getJobDetails();
-    // }, [jobId, user]);
+        getJobDetails();
+    }, [jobId, user]);
 
-    // const handleApplyJob = async () => {
-    //     if (user?.role === 1) {
-    //         setNotificationMessage('Tính năng này không phù hợp với vai trò của bạn');
-    //         setShowNotification(true);
-    //         setTimeout(() => {
-    //             setShowNotification(false);
-    //         }, 3000);
-    //         return;
-    //     }
-    //     if (user?.role === 0) {
-    //         navigate(`/jobApplication/${jobId}`);
-    //     } else {
-    //         setNotificationMessage('Bạn cần đăng nhập!');
-    //         setShowModal(true);
-    //     }
-    // };
+    const handleApplyJob = async () => {
+        if (user?.role === 1) {
+            setNotificationMessage('Tính năng này không phù hợp với vai trò của bạn');
+            setShowNotification(true);
+            setTimeout(() => {
+                setShowNotification(false);
+            }, 3000);
+            return;
+        }
+        if (user?.role === 0) {
+            navigate(`/jobApplication/${jobId}`);
+        } else {
+            setNotificationMessage('Bạn cần đăng nhập!');
+            setShowModal(true);
+        }
+    };
 
-    // const handleToggleFavorite = async () => {
-    //     if (!user) {
-    //         setNotificationMessage('Bạn cần đăng nhập để lưu công việc yêu thích!');
-    //         setShowModal(true);
-    //         return;
-    //     }
+    const handleToggleFavorite = async () => {
+        if (!user) {
+            setNotificationMessage('Bạn cần đăng nhập để lưu công việc yêu thích!');
+            setShowModal(true);
+            return;
+        }
 
-    //     setIsSubmittingFavorite(true);
-    //     try {
-    //         const token = getToken();
-    //         const response = await authApi(token).post(endpoints['like'](jobId));
-    //         setIsFavorite(response.data.liked);
+        setIsSubmittingFavorite(true);
+        try {
+            const token = getToken();
+            const response = await authApi(token).post(endpoints['like'](jobId));
+            setIsFavorite(response.data.liked);
 
-    //         const message = response.data.liked ? 'Lưu việc làm thành công' : 'Đã bỏ lưu việc làm';
-    //         setNotificationMessage(message);
-    //         setShowNotification(true);
-    //         setTimeout(() => {
-    //             setShowNotification(false);
-    //         }, 3000);
-    //     } catch (error) {
-    //         console.error('Error handling favorite job: ', error);
-    //     } finally {
-    //         setIsSubmittingFavorite(false);
-    //     }
-    // };
+            const message = response.data.liked ? 'Lưu việc làm thành công' : 'Đã bỏ lưu việc làm';
+            setNotificationMessage(message);
+            setShowNotification(true);
+            setTimeout(() => {
+                setShowNotification(false);
+            }, 3000);
+        } catch (error) {
+            console.error('Error handling favorite job: ', error);
+        } finally {
+            setIsSubmittingFavorite(false);
+        }
+    };
 
-    // if (loading) {
-    //     return (
-    //         <div className="flex justify-center items-center h-64">
-    //             <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-yellow-400"></div>
-    //         </div>
-    //     );
-    // }
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center h-64">
+                <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-yellow-400"></div>
+            </div>
+        );
+    }
 
-    // if (!job) {
-    //     return <div>Không tìm thấy công việc</div>;
-    // }
+    if (!job) {
+        return <div>Không tìm thấy công việc</div>;
+    }
 
     return (
         <div className="container mx-auto my-10">

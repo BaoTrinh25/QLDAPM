@@ -121,83 +121,83 @@ const PostRecruitment = () => {
         return true;
     };
 
-    // useEffect(() => {
-    //     const fetchAreas = async () => {
-    //         try {
-    //             const res = await APIs.get(endpoints["areas"]);
-    //             setAreas(res.data);
-    //         } catch (err) {
-    //             console.error(err);
-    //         }
-    //     };
+    useEffect(() => {
+        const fetchAreas = async () => {
+            try {
+                const res = await APIs.get(endpoints["areas"]);
+                setAreas(res.data);
+            } catch (err) {
+                console.error(err);
+            }
+        };
 
-    //     const fetchEmploymentTypes = async () => {
-    //         try {
-    //             const res = await APIs.get(endpoints["employmenttypes"]);
-    //             setEmploymentTypes(res.data);
-    //         } catch (err) {
-    //             console.error(err);
-    //         }
-    //     };
+        const fetchEmploymentTypes = async () => {
+            try {
+                const res = await APIs.get(endpoints["employmenttypes"]);
+                setEmploymentTypes(res.data);
+            } catch (err) {
+                console.error(err);
+            }
+        };
 
-    //     const fetchCareers = async () => {
-    //         try {
-    //             const res = await APIs.get(endpoints["careers"]);
-    //             setCareers(res.data);
-    //         } catch (err) {
-    //             console.error(err);
-    //         }
-    //     };
+        const fetchCareers = async () => {
+            try {
+                const res = await APIs.get(endpoints["careers"]);
+                setCareers(res.data);
+            } catch (err) {
+                console.error(err);
+            }
+        };
 
-    //     fetchAreas();
-    //     fetchEmploymentTypes();
-    //     fetchCareers();
-    // }, []);
+        fetchAreas();
+        fetchEmploymentTypes();
+        fetchCareers();
+    }, []);
 
-    // const postJob = async () => {
-    //     setErr(false);
+    const postJob = async () => {
+        setErr(false);
 
-    //     if (!validateFields()) {
-    //         return;
-    //     }
+        if (!validateFields()) {
+            return;
+        }
 
-    //     let form = new FormData();
-    //     for (let key in job) {
-    //         form.append(key, job[key]);
-    //     }
-    //     form.append("reported", "False");
-    //     form.append("active", "True");
-    //     form.append("company", user.company.id);
-    //     setLoading(true);
-    //     try {
-    //         const token = getToken();
-    //         const res = await authApi(token).post(
-    //             endpoints["post_recruitment"],
-    //             form,
-    //             {
-    //                 headers: {
-    //                     "Content-Type": "multipart/form-data",
-    //                 },
-    //             }
-    //         );
+        let form = new FormData();
+        for (let key in job) {
+            form.append(key, job[key]);
+        }
+        form.append("reported", "False");
+        form.append("active", "True");
+        form.append("company", user.company.id);
+        setLoading(true);
+        try {
+            const token = getToken();
+            const res = await authApi(token).post(
+                endpoints["post_recruitment"],
+                form,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
 
-    //         if (res.status === 201) {
-    //             alert("Bài đăng đã được tạo thành công.");
-    //             setJob({});
-    //             setGender("");
-    //             setDate(new Date());
-    //             setSelectedImage(null);
-    //             setSelectedFile(null);
-    //             navigate("/list-posted");
-    //         }
-    //         console.log(res.data);
-    //     } catch (ex) {
-    //         console.error(ex.response);
-    //         setErr(true);
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // };
+            if (res.status === 201) {
+                alert("Bài đăng đã được tạo thành công.");
+                setJob({});
+                setGender("");
+                setDate(new Date());
+                setSelectedImage(null);
+                setSelectedFile(null);
+                navigate("/list-posted");
+            }
+            console.log(res.data);
+        } catch (ex) {
+            console.error(ex.response);
+            setErr(true);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <div className="container mx-auto p-4 w-[70%] bg-red-200">
@@ -324,7 +324,7 @@ const PostRecruitment = () => {
                     <div className="flex justify-end">
                         <button
                             type="button"
-                            // onClick={postJob}
+                            onClick={postJob}
                             className={`text-white bg-green-500 py-2 px-7 rounded hover:bg-green-700 ${loading ? "opacity-50" : ""}`}
                             disabled={loading}
                         >

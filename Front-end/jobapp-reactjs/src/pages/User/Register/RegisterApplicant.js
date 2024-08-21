@@ -109,7 +109,48 @@ const RegisterApplicant = () => {
     };
 
     const handleSubmit = async (e) => {
-        
+        e.preventDefault();
+        if (!userId) {
+            setError('User ID is missing.');
+            return;
+        }
+
+        const applicantData = {
+            position: position,
+            salary_expectation: salaryExpectation,
+            experience: experience,
+            career: parseInt(selectedCareer),
+            skills: selectedSkills.map(id => parseInt(id)),
+            areas: selectedAreas.map(id => parseInt(id)),
+            cv: cv ? cv.name : ""
+        };
+
+        const form = new FormData();
+        for (const key in applicantData) {
+            if (Array.isArray(applicantData[key])) {
+                applicantData[key].forEach((item, index) => {
+                    form.append(`${key}[${index}]`, item);
+                });
+            } else {
+                form.append(key, applicantData[key]);
+            }
+        }
+
+        console.log('Data being sent:', applicantData); // Log dữ liệu được gửi đi
+        try {
+            const res = await APIs.post(endpoints["register_jobseeker"](userId), 
+            form, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            console.log('Server response:', res.data); // Log dữ liệu trả về từ server
+            alert('Thông tin đã được cập nhật thành công!');
+            navigate('/login'); // Chuyển hướng người dùng sau khi đăng ký thành công
+        } catch (err) {
+            console.error(err);
+            alert('Có lỗi xảy ra. Vui lòng thử lại.');
+        }
     };
 
     const progressPercentage = (step / 7) * 100;

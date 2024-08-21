@@ -11,7 +11,6 @@ const UpdateInfoProfileEmployer = () => {
 
     const [formData, setFormData] = useState({
         companyName: user.company.companyName || '',
-        position: user.company.position || '',
         information: user.company.information || '',
         address: user.company.address || '',
         company_type: user.company.company_type || 0,
@@ -37,36 +36,36 @@ const UpdateInfoProfileEmployer = () => {
     //     }
     // };
 
-    // const updateEmployer = async () => {
-    //     let form = new FormData();
-    //     Object.keys(formData).forEach((key) => {
-    //         form.append(key, formData[key]);
-    //     });
-    //     try {
-    //         const token = getToken();
-    //         console.log('Data sending to server:', form); // Log form data before sending
+    const updateEmployer = async () => {
+        let form = new FormData();
+        Object.keys(formData).forEach((key) => {
+            form.append(key, formData[key]);
+        });
+        try {
+            const token = getToken();
+            console.log('Data sending to server:', form); // Log form data before sending
 
-    //         const res = await authApi(token).patch(endpoints["patch_company"]
-    //             (user.company.id), 
-    //             form, 
-    //             {
-    //             headers: {
-    //                 'Content-Type': 'multipart/form-data'
-    //             }
-    //         });
+            const res = await authApi(token).patch(endpoints["patch_company"]
+                (user.company.id), 
+                form, 
+                {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
 
-    //         console.log('Response from server:', res.data); // Log response from server
+            console.log('Response from server:', res.data); // Log response from server
 
-    //         if (res.status === 200) {
-    //             alert('Cập nhật thông tin thành công!');
-    //             navigate('/employer-profile');
-    //         } else {
-    //             console.error('Lỗi khi cập nhật thông tin');
-    //         }
-    //     } catch (ex) {
-    //         console.error(ex);
-    //     }
-    // };
+            if (res.status === 200) {
+                alert('Cập nhật thông tin thành công!');
+                navigate('/employer-profile');
+            } else {
+                console.error('Lỗi khi cập nhật thông tin');
+            }
+        } catch (ex) {
+            console.error(ex);
+        }
+    };
 
     return (
         <div className="flex flex-row items-start p-6 bg-gray-100 min-h-screen">
@@ -79,16 +78,6 @@ const UpdateInfoProfileEmployer = () => {
                             type="text"
                             name="companyName"
                             value={formData.companyName}
-                            onChange={handleChange}
-                            className="mt-1 block w-full border rounded-md p-2"
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Position</label>
-                        <input
-                            type="text"
-                            name="position"
-                            value={formData.position}
                             onChange={handleChange}
                             className="mt-1 block w-full border rounded-md p-2"
                         />

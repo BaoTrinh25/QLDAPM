@@ -30,65 +30,65 @@ const UpdateInfoApplicant = () => {
     ];
 
 
-    // const onDrop = (acceptedFiles) => {
-    //     setSelectedFile(acceptedFiles[0]);
-    // };
+    const onDrop = (acceptedFiles) => {
+        setSelectedFile(acceptedFiles[0]);
+    };
 
-    // const { getRootProps, getInputProps } = useDropzone({
-    //     onDrop,
-    //     accept: {
-    //         'application/pdf': ['.pdf'],
-    //         'image/*': ['.jpeg', '.png', '.jpg', '.gif']
-    //     }
-    // });
+    const { getRootProps, getInputProps } = useDropzone({
+        onDrop,
+        accept: {
+            'application/pdf': ['.pdf'],
+            'image/*': ['.jpeg', '.png', '.jpg', '.gif']
+        }
+    });
 
-    // const updateApplicantInfo = async () => {
-    //     if (!experience || !position || !salaryExpectation || !selectedFile) {
-    //         alert('Vui lòng điền đầy đủ thông tin!');
-    //         return;
-    //     }
-    //     try {
-    //         let form = new FormData();
-    //         form.append('experience', experience);
-    //         // form.append('career', selectedCareer.id); 
-    //         form.append('position', position);
-    //         form.append('salary_expectation', salaryExpectation);
-    //         form.append('cv', selectedFile);
-    //         const token = getToken();
-    //         const res = await authApi(token).put(
-    //             endpoints["put_jobSeeker"]
-    //                 (user.jobSeeker.id),
-    //             form,
-    //             {
-    //                 headers: {
-    //                     'Content-Type': 'multipart/form-data',
-    //                 },
-    //             }
-    //         );
+    const updateApplicantInfo = async () => {
+        if (!experience || !position || !salaryExpectation || !selectedFile) {
+            alert('Vui lòng điền đầy đủ thông tin!');
+            return;
+        }
+        try {
+            let form = new FormData();
+            form.append('experience', experience);
+            // form.append('career', selectedCareer.id); 
+            form.append('position', position);
+            form.append('salary_expectation', salaryExpectation);
+            form.append('cv', selectedFile);
+            const token = getToken();
+            const res = await authApi(token).put(
+                endpoints["put_jobSeeker"]
+                    (user.jobSeeker.id),
+                form,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                }
+            );
 
-    //         if (res.status === 200) {
-    //             alert('Cập nhật thông tin thành công!');
-    //             navigate('/applicant-profile')
-    //             // dispatch({
-    //             //     type: 'update_applicant',
-    //             //     payload: res.data 
-    //             // });
-    //             // navigate("/ProfileApplicant");
-    //         } else {
-    //             console.error('Lỗi khi cập nhật thông tin');
-    //         }
-    //     } catch (error) {
-    //         console.error('Lỗi khi gửi yêu cầu:', error);
-    //     }
-    // };
+            if (res.status === 200) {
+                alert('Cập nhật thông tin thành công!');
+                navigate('/applicant-profile')
+                // dispatch({
+                //     type: 'update_applicant',
+                //     payload: res.data 
+                // });
+                // navigate("/ProfileApplicant");
+            } else {
+                console.error('Lỗi khi cập nhật thông tin');
+            }
+        } catch (error) {
+            console.error('Lỗi khi gửi yêu cầu:', error);
+        }
+    };
 
-    // const handleSubmit = () => {
-    //     updateApplicantInfo();
-    // };
+    const handleSubmit = () => {
+        updateApplicantInfo();
+    };
 
-    // const handleDeleteImage = () => {
-    //     setSelectedFile(null);
-    // };
+    const handleDeleteImage = () => {
+        setSelectedFile(null);
+    };
 
     return (
             <div className="mx-auto p-4 w-[70%] shadow-md my-10  rounded-lg max-w-2xl bg-fuchsia-50">

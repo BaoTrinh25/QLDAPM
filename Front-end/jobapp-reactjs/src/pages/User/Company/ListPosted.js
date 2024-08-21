@@ -14,68 +14,68 @@ const ListPosted = () => {
   const [jobToDelete, setJobToDelete] = useState(null);
   const navigate = useNavigate();
 
-//   const fetchJobs = async () => {
-//     if (loading) return;
-//     setLoading(true);
+  const fetchJobs = async () => {
+    if (loading) return;
+    setLoading(true);
 
-//     try {
-//       const token = getToken();
-//       const response = await APIs.get(endpoints['job_posted'], {
-//         headers: {
-//           Authorization: `Bearer ${token}`
-//         }
-//       });
-//       const data = response.data;
-//       if (data && Array.isArray(data)) {
-//         setJobs(data);
-//       } else {
-//         console.error('API response does not contain a results array');
-//       }
-//     } catch (error) {
-//       console.error(error);
-//     } finally {
-//       setLoading(false);
-//       setIsRefreshing(false);
-//     }
-//   };
+    try {
+      const token = getToken();
+      const response = await APIs.get(endpoints['job_posted'], {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      const data = response.data;
+      if (data && Array.isArray(data)) {
+        setJobs(data);
+      } else {
+        console.error('API response does not contain a results array');
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+      setIsRefreshing(false);
+    }
+  };
 
-//   useEffect(() => {
-//     fetchJobs();
-//   }, []);
+  useEffect(() => {
+    fetchJobs();
+  }, []);
 
-//   const handleDeleteJob = async () => {
-//     try {
-//       const token = getToken();
-//       const response = await APIs.delete(endpoints['delete_job'](jobToDelete), {
-//         headers: {
-//           Authorization: `Bearer ${token}`
-//         }
-//       });
+  const handleDeleteJob = async () => {
+    try {
+      const token = getToken();
+      const response = await APIs.delete(endpoints['delete_job'](jobToDelete), {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
 
-//       if (response.status === 204) {
-//         setIsDeleteModalOpen(false);
-//         setJobToDelete(null);
-//         handleRefresh();
-//       }
-//     } catch (error) {
-//       console.error('Error deleting job:', error);
-//     }
-//   };
+      if (response.status === 204) {
+        setIsDeleteModalOpen(false);
+        setJobToDelete(null);
+        handleRefresh();
+      }
+    } catch (error) {
+      console.error('Error deleting job:', error);
+    }
+  };
 
-//   const handleRefresh = () => {
-//     setIsRefreshing(true);
-//     fetchJobs();
-//   };
+  const handleRefresh = () => {
+    setIsRefreshing(true);
+    fetchJobs();
+  };
 
-//   const openDeleteModal = (jobId) => {
-//     setJobToDelete(jobId);
-//     setIsDeleteModalOpen(true);
-//   };
+  const openDeleteModal = (jobId) => {
+    setJobToDelete(jobId);
+    setIsDeleteModalOpen(true);
+  };
 
-//   const closeDeleteModal = () => {
-//     setIsDeleteModalOpen(false);
-//     setJobToDelete(null);
-//   };
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+    setJobToDelete(null);
+  };
 
   return (
     <div className="flex h-screen">
