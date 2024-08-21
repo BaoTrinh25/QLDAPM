@@ -19,9 +19,20 @@ const TopLatestJob = () => {
 
     while (hasMorePages) {
       try {
-        
+        const data = await fetchAllJob(currentPage);
+        if (data && Array.isArray(data.results)) {
+          allJobs = [...allJobs, ...data.results];
+          currentPage++;
+          if (data.next === null) {
+            hasMorePages = false;
+          }
+        } else {
+          console.error('API response does not contain a results array');
+          hasMorePages = false;
+        }
       } catch (error) {
-      
+        console.error(error);
+        hasMorePages = false;
       }
     }
 

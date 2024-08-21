@@ -48,7 +48,49 @@ const RegisterEmployer = () => {
 
 
     const handleSubmit = async (e) => {
-       
+        e.preventDefault();
+        if (!userId) {
+            setError('User ID is missing.');
+            return;
+        }
+
+        const employerData = {
+            position: position,
+            companyName: companyName,
+            information: information,
+            company_type: company_type,
+            address: address
+        };
+
+        const form = new FormData();
+        for (const key in employerData) {
+            if (Array.isArray(employerData[key])) {
+                employerData[key].forEach((item, index) => {
+                    form.append(`${key}[${index}]`, item);
+                });
+            } else {
+                form.append(key, employerData[key]);
+            }
+        }
+
+        console.log('Data being sent:', employerData); // Log dữ liệu được gửi đi
+        try {
+            const res = await APIs.post(endpoints["register_company"](userId), 
+            form, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            console.log('Server response:', res.data); // Log dữ liệu trả về từ server
+            if (!alertShown) {
+                toast.success('Đăng kí thành công');
+                setAlertShown(true); // Update state to prevent multiple alerts
+              }
+            navigate('/login'); // Chuyển hướng người dùng sau khi đăng ký thành công
+        } catch (err) {
+            console.error(err);
+            alert('Có lỗi xảy ra. Vui lòng thử lại.');
+        }
     };
 
     const progressPercentage = (step / 5) * 100;

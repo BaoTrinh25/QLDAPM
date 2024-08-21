@@ -34,7 +34,46 @@ const Register = () => {
     };
 
     const handleSubmit = async (e) => {
-        
+        e.preventDefault();
+
+        if (user.password !== user.confirm)
+            setError("Mật khẩu không khớp");
+        else {
+            setError("");
+            setLoading(true);
+            try {
+                let form = new FormData();
+                for (let f in user) {
+                    form.append(f, user[f]);
+                }
+                form.append("role", role);
+                let res = await APIs.post(endpoints["register_user"], form, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                });
+            
+                if (res.status === 201) {
+                    const userId = res.data.id;
+                    toast.success('Đăng kí thành công');
+                    setTimeout(() => {
+                        if (role === 0) {
+                            navigate(`/register-applicant/${userId}`);
+                        } else if (role === 1) {
+                            navigate(`/register-employer/${userId}`);
+                        }
+                    }, 2000); // Chờ 2 giây để người dùng có thể thấy thông báo trước khi chuyển trang
+                }
+            } catch (error) {
+                console.error(error);
+                if (!alertShown) {
+                    toast.error('Đăng kí thất bại. Vui lòng thử lại!');
+                    setAlertShown(true); // Update state to prevent multiple alerts
+                }
+            } finally {
+                setLoading(false);
+            }
+        }
     };
 
     return (

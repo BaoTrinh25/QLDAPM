@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {fetchPopularJob } from '../../configs/APIs';
+import SearchJobs from './SearchJobs';
 
 const AllJobLatest = () => {
   const [jobs, setJobs] = useState([]);
@@ -14,9 +16,11 @@ const AllJobLatest = () => {
     setLoading(true);
 
     try {
-    
+      const data = await fetchPopularJob(pageNum, keyword, location);
       if (data && Array.isArray(data.results)) {
-       
+        setJobs(data.results);
+        setPage(pageNum);
+        setHasNextPage(!!data.next);
       } else {
         console.error('API response does not contain a results array');
       }
