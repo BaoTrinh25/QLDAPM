@@ -7,6 +7,7 @@ import APIs, { authApi, endpoints } from '../../configs/APIs';
 import { setToken } from '../../utils/storage';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {FacebookLogin} from 'react-facebook-login'
 
 const Login = () => {
   const [error, setError] = useState('');
@@ -74,7 +75,9 @@ const Login = () => {
       setIsLoggingIn(false);
     }
   };
-
+  const responseFacebook = (response) => {
+    console.log(response);
+  }
   return (
     <div className="flex justify-center items-center h-screen bg-cover bg-center" style={{ backgroundImage: "url('https://static.vecteezy.com/system/resources/previews/007/164/537/original/fingerprint-identity-sensor-data-protection-system-podium-hologram-blue-light-and-concept-free-vector.jpg')" }}>
       <form className="bg-white p-8 rounded-xl shadow-xl w-80" onSubmit={handleSubmit}>
@@ -127,6 +130,22 @@ const Login = () => {
               Continue with Google
             </button>
           )}
+        />
+
+        <FacebookLogin
+          appId="960103055799422"
+          autoLoad={false}
+          fields="name,email,picture"
+          
+          onSuccess={(response) => {
+            setFb(response)
+            console.log(response)
+          }}
+          onFailure={(error) => {
+            setFb(null)
+          }}
+
+          callback={responseFacebook}
         />
         <div className='mt-5'>
           <Link to="/" className="text-green-700 text-sm justify-center">
