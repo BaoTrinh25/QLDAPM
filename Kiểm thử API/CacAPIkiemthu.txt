@@ -1,0 +1,10 @@
+   "jobs": "https://baotrinh.pythonanywhere.com/jobs/",
+    "users": "https://baotrinh.pythonanywhere.com/users/",
+    "companies": "https://baotrinh.pythonanywhere.com/companies/",
+    "jobseeker": "https://baotrinh.pythonanywhere.com/jobseeker/",
+    "careers": "https://baotrinh.pythonanywhere.com/careers/",
+    "employmenttypes": "https://baotrinh.pythonanywhere.com/employmenttypes/",
+    "areas": "https://baotrinh.pythonanywhere.com/areas/",
+    "skills": "https://baotrinh.pythonanywhere.com/skills/"
+
+    VỚI CÁC PHƯƠNG THỨC: GET, POST, PUT, PATCH, DELETE
